@@ -3,18 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tóth Krisztián - Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-        // Apply dark mode immediately before page renders to prevent flash
-        (function() {
-            if (localStorage.getItem('darkMode') === 'enabled') {
-                document.documentElement.classList.add('dark-mode');
-            }
-        })();
-    </script>
+    <title>Christian Toth - Portfolio</title>
     <style>
         * {
             margin: 0;
@@ -22,654 +11,266 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --glass-bg: rgba(255, 255, 255, 0.4);
-            --glass-border: rgba(255, 255, 255, 0.6);
-            --text-primary: #1a1a1a;
-            --text-secondary: rgba(26, 26, 26, 0.65);
-            --accent: #1a1a1a;
-            --bg-primary: #f5f5f5;
-            --bg-secondary: #e8e8e8;
-            --bg-gradient-start: #f5f5f5;
-            --bg-gradient-end: #e8e8e8;
-            --header-gradient: rgba(255, 255, 255, 1);
-            --header-gradient-mid: rgba(255, 255, 255, 0.95);
-            --header-gradient-end: rgba(255, 255, 255, 0);
-            --dot-color: rgba(130, 135, 200, 0.4);
-            --mobile-menu-bg: rgba(250, 250, 250, 0.85);
-        }
-
-        body.dark-mode,
-        html.dark-mode body {
-            --glass-bg: rgba(30, 30, 30, 0.4);
-            --glass-border: rgba(80, 80, 80, 0.6);
-            --text-primary: #e8e8e8;
-            --text-secondary: rgba(232, 232, 232, 0.65);
-            --accent: #e8e8e8;
-            --bg-primary: #1a1a1a;
-            --bg-secondary: #0f0f0f;
-            --bg-gradient-start: #1a1a1a;
-            --bg-gradient-end: #0f0f0f;
-            --header-gradient: rgba(26, 26, 26, 1);
-            --header-gradient-mid: rgba(26, 26, 26, 0.95);
-            --header-gradient-end: rgba(26, 26, 26, 0);
-            --dot-color: rgba(130, 135, 200, 0.3);
-            --mobile-menu-bg: rgba(20, 20, 20, 0.85);
-        }
-
         body {
-            font-family: 'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: 'Courier New', monospace;
+            background: #0026ff;
+            color: white;
+            min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-            min-height: 100vh;
-            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* SVG filter for distortion effect */
-        #distortion-filter {
-            display: none;
-        }
-
-        /* Blurred background designs */
-        .background-designs {
+        .background-grid {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            z-index: 0;
+            height: 100vh;
+            z-index: 1;
             overflow: hidden;
-            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
-            transition: background 0.3s ease;
+            display: flex;
+            gap: 20px;
+            padding: 20px;
         }
 
-        .design-element {
-            position: absolute;
-            border-radius: 50%;
-            background: var(--dot-color);
-            filter: blur(25px);
-            animation: floatDots 25s infinite ease-in-out;
-            transition: background 0.3s ease, opacity 0.3s ease;
+        /* Portfolio columns with staggered movement */
+        .portfolio-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-width: 200px;
+            will-change: transform;
         }
 
-        .design-element:nth-child(1) {
-            width: 200px;
-            height: 200px;
-            top: 8%;
-            left: 12%;
-            animation-duration: 20s;
+        .portfolio-column:nth-child(1) {
+            animation: slideDownUp 80s linear infinite;
         }
 
-        .design-element:nth-child(2) {
-            width: 80px;
-            height: 80px;
-            top: 25%;
-            left: 78%;
-            animation-duration: 22s;
-            animation-delay: -3s;
+        .portfolio-column:nth-child(2) {
+            animation: slideUpDown 70s linear infinite;
         }
 
-        .design-element:nth-child(3) {
-            width: 150px;
-            height: 150px;
-            top: 55%;
-            left: 18%;
-            animation-duration: 26s;
-            animation-delay: -7s;
+        .portfolio-column:nth-child(3) {
+            animation: slideDownUp 90s linear infinite;
         }
 
-        .design-element:nth-child(4) {
-            width: 100px;
-            height: 100px;
-            top: 75%;
-            left: 68%;
-            animation-duration: 21s;
-            animation-delay: -5s;
+        .portfolio-column:nth-child(4) {
+            animation: slideUpDown 76s linear infinite;
         }
 
-        .design-element:nth-child(5) {
-            width: 250px;
-            height: 250px;
-            top: 35%;
-            left: 48%;
-            animation-duration: 24s;
-            animation-delay: -10s;
-        }
-
-        .design-element:nth-child(6) {
-            width: 70px;
-            height: 70px;
-            top: 68%;
-            left: 32%;
-            animation-duration: 23s;
-            animation-delay: -2s;
-        }
-
-        .design-element:nth-child(7) {
-            width: 180px;
-            height: 180px;
-            top: 12%;
-            left: 42%;
-            animation-duration: 19s;
-            animation-delay: -8s;
-        }
-
-        .design-element:nth-child(8) {
-            width: 130px;
-            height: 130px;
-            top: 48%;
-            left: 82%;
-            animation-duration: 27s;
-            animation-delay: -4s;
-        }
-
-        .design-element:nth-child(9) {
-            width: 90px;
-            height: 90px;
-            top: 32%;
-            left: 22%;
-            animation-duration: 20s;
-            animation-delay: -9s;
-        }
-
-        .design-element:nth-child(10) {
-            width: 220px;
-            height: 220px;
-            top: 62%;
-            left: 58%;
-            animation-duration: 28s;
-            animation-delay: -6s;
-        }
-
-        .design-element:nth-child(11) {
-            width: 60px;
-            height: 60px;
-            top: 22%;
-            left: 62%;
-            animation-duration: 22s;
-            animation-delay: -11s;
-        }
-
-        .design-element:nth-child(12) {
-            width: 160px;
-            height: 160px;
-            top: 52%;
-            left: 38%;
-            animation-duration: 23s;
-            animation-delay: -1s;
-        }
-
-        .design-element:nth-child(13) {
-            width: 110px;
-            height: 110px;
-            top: 42%;
-            left: 72%;
-            animation-duration: 25s;
-            animation-delay: -12s;
-        }
-
-        .design-element:nth-child(14) {
-            width: 190px;
-            height: 190px;
-            top: 82%;
-            left: 28%;
-            animation-duration: 21s;
-            animation-delay: -3s;
-        }
-
-        .design-element:nth-child(15) {
-            width: 85px;
-            height: 85px;
-            top: 28%;
-            left: 88%;
-            animation-duration: 26s;
-            animation-delay: -7s;
-        }
-
-        .design-element:nth-child(16) {
-            width: 140px;
-            height: 140px;
-            top: 72%;
-            left: 52%;
-            animation-duration: 20s;
-            animation-delay: -13s;
-        }
-
-        .design-element:nth-child(17) {
-            width: 170px;
-            height: 170px;
-            top: 5%;
-            left: 35%;
-            animation-duration: 24s;
-            animation-delay: -5s;
-        }
-
-        .design-element:nth-child(18) {
-            width: 75px;
-            height: 75px;
-            top: 88%;
-            left: 78%;
-            animation-duration: 22s;
-            animation-delay: -9s;
-        }
-
-        .design-element:nth-child(19) {
-            width: 210px;
-            height: 210px;
-            top: 15%;
-            left: 52%;
-            animation-duration: 23s;
-            animation-delay: -2s;
-        }
-
-        .design-element:nth-child(20) {
-            width: 65px;
-            height: 65px;
-            top: 92%;
-            left: 12%;
-            animation-duration: 25s;
-            animation-delay: -14s;
-        }
-
-        .design-element:nth-child(21) {
-            width: 240px;
-            height: 240px;
-            top: 18%;
-            left: 8%;
-            animation-duration: 27s;
-            animation-delay: -4s;
-        }
-
-        .design-element:nth-child(22) {
-            width: 95px;
-            height: 95px;
-            top: 45%;
-            left: 92%;
-            animation-duration: 21s;
-            animation-delay: -10s;
-        }
-
-        .design-element:nth-child(23) {
-            width: 120px;
-            height: 120px;
-            top: 65%;
-            left: 8%;
-            animation-duration: 24s;
-            animation-delay: -6s;
-        }
-
-        .design-element:nth-child(24) {
-            width: 175px;
-            height: 175px;
-            top: 38%;
-            left: 65%;
-            animation-duration: 26s;
-            animation-delay: -8s;
-        }
-
-        .design-element:nth-child(25) {
-            width: 55px;
-            height: 55px;
-            top: 58%;
-            left: 85%;
-            animation-duration: 22s;
-            animation-delay: -11s;
-        }
-
-        .design-element:nth-child(26) {
-            width: 230px;
-            height: 230px;
-            top: 78%;
-            left: 45%;
-            animation-duration: 25s;
-            animation-delay: -3s;
-        }
-
-        .design-element:nth-child(27) {
-            width: 105px;
-            height: 105px;
-            top: 10%;
-            left: 68%;
-            animation-duration: 23s;
-            animation-delay: -12s;
-        }
-
-        .design-element:nth-child(28) {
-            width: 195px;
-            height: 195px;
-            top: 85%;
-            left: 15%;
-            animation-duration: 27s;
-            animation-delay: -5s;
-        }
-
-        .design-element:nth-child(29) {
-            width: 145px;
-            height: 145px;
-            top: 50%;
-            left: 5%;
-            animation-duration: 21s;
-            animation-delay: -9s;
-        }
-
-        .design-element:nth-child(30) {
-            width: 125px;
-            height: 125px;
-            top: 95%;
-            left: 88%;
-            animation-duration: 24s;
-            animation-delay: -7s;
-        }
-
-        @keyframes floatDots {
-            0%, 100% {
-                transform: translate(0, 0);
-            }
-            25% {
-                transform: translate(80px, -60px);
+        @keyframes slideDownUp {
+            0% {
+                transform: translateY(-50%) translateZ(0);
             }
             50% {
-                transform: translate(-40px, 80px);
+                transform: translateY(0) translateZ(0);
             }
-            75% {
-                transform: translate(60px, 40px);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-            }
-            33% {
-                transform: translate(30px, -50px) scale(1.1);
-            }
-            66% {
-                transform: translate(-20px, 30px) scale(0.9);
+            100% {
+                transform: translateY(-50%) translateZ(0);
             }
         }
 
-        /* Glass effect */
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
-            transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        @keyframes slideUpDown {
+            0% {
+                transform: translateY(0) translateZ(0);
+            }
+            50% {
+                transform: translateY(-50%) translateZ(0);
+            }
+            100% {
+                transform: translateY(0) translateZ(0);
+            }
         }
 
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 1.5rem 2rem;
-            transition: all 0.3s ease;
+        .portfolio-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            cursor: pointer;
+            flex-shrink: 0;
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        header::before {
+        .portfolio-item::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 180%;
-            background: linear-gradient(180deg, 
-                var(--header-gradient) 0%,
-                var(--header-gradient-mid) 25%,
-                var(--header-gradient-mid) 50%,
-                var(--header-gradient-mid) 75%,
-                var(--header-gradient-end) 100%);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            mask-image: linear-gradient(180deg, 
-                rgba(0, 0, 0, 1) 0%,
-                rgba(0, 0, 0, 0.9) 40%,
-                rgba(0, 0, 0, 0.5) 70%,
-                rgba(0, 0, 0, 0) 100%);
-            -webkit-mask-image: linear-gradient(180deg, 
-                rgba(0, 0, 0, 1) 0%,
-                rgba(0, 0, 0, 0.9) 40%,
-                rgba(0, 0, 0, 0.5) 70%,
-                rgba(0, 0, 0, 0) 100%);
-            z-index: -1;
-            pointer-events: none;
-            transition: background 0.3s ease;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
-        header.scrolled::before {
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
+        .portfolio-item:hover {
+            transform: scale(1.02);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .portfolio-item:hover::before {
+            opacity: 1;
+        }
+
+        /* Varied heights for visual interest */
+        .portfolio-item:nth-child(odd) {
+            height: 280px;
+        }
+
+        .portfolio-item:nth-child(even) {
+            height: 350px;
+        }
+
+        .portfolio-item:nth-child(3n) {
+            height: 220px;
+        }
+
+        .portfolio-item:nth-child(5n) {
+            height: 400px;
+        }
+
+        /* Placeholder for actual portfolio images */
+        .portfolio-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            opacity: 0.3;
+            font-weight: 900;
+            color: white;
+        }
+
+        /* Logo examples with SVG */
+        .logo-example {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .logo-example svg {
+            width: 70%;
+            height: 70%;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+            opacity: 0.4;
         }
 
         nav {
+            position: relative;
+            z-index: 100;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            flex-wrap: wrap;
         }
 
         .logo {
-            font-size: 1.25rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            color: var(--text-primary);
-            z-index: 1001;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: white;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            padding: clamp(0.6rem, 1.5vw, 1rem);
+            flex-shrink: 0;
+            line-height: 1;
+            cursor: pointer !important;
+            z-index: 101;
             position: relative;
-            transition: color 0.3s ease;
+        }
+        
+        .logo::before {
+            content: 'C';
+            display: block;
+            width: 1em;
+            text-align: center;
+            cursor: pointer !important;
+            pointer-events: none;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 0.5rem;
             list-style: none;
+            flex-wrap: wrap;
+            z-index: 101;
+            position: relative;
         }
-        
-        @media (min-width: 769px) {
-            .nav-links {
-                align-items: center;
-            }
+
+        .nav-links li {
+            display: block;
+            position: relative;
+            z-index: 101;
         }
 
         .nav-links a {
-            color: var(--text-primary);
+            color: white;
             text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 400;
+            font-size: clamp(0.9rem, 2vw, 1.3rem);
             letter-spacing: 0.02em;
-            position: relative;
-            display: inline-block;
-            transition: color 0.3s ease, opacity 0.3s ease;
-        }
-
-        .dark-mode-toggle {
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s ease;
-        }
-        
-        @media (min-width: 769px) {
-            .dark-mode-toggle {
-                margin-left: 0.5rem;
-            }
-        }
-
-        .dark-mode-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        .dark-mode-toggle svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--text-primary);
-            transition: fill 0.3s ease;
-        }
-
-        .dark-mode-toggle .moon-icon {
-            display: none;
-        }
-
-        body.dark-mode .dark-mode-toggle .sun-icon,
-        html.dark-mode .dark-mode-toggle .sun-icon {
-            display: none;
-        }
-
-        body.dark-mode .dark-mode-toggle .moon-icon,
-        html.dark-mode .dark-mode-toggle .moon-icon {
+            padding: clamp(0.6rem, 1.5vw, 1rem) clamp(1.5rem, 3vw, 2.5rem);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 30px;
+            transition: all 0.3s;
             display: block;
-        }
-
-        /* Hamburger menu */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
-            z-index: 1001;
-            padding: 8px;
+            font-weight: bold;
+            white-space: nowrap;
+            cursor: pointer !important;
             position: relative;
+            z-index: 101;
         }
 
-        .hamburger span {
-            width: 28px;
-            height: 2px;
-            background: var(--text-primary);
-            transition: all 0.3s ease;
-            border-radius: 1px;
-            transform-origin: center;
-            will-change: transform;
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.25);
         }
 
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5.5px, 6px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5.5px, -6px);
-        }
-
-        /* Footer */
-        footer {
+        .center-text {
             position: relative;
             z-index: 10;
-            padding: 2rem 2rem 1.5rem;
-            margin-top: 4rem;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 200%;
-            background: linear-gradient(0deg, 
-                var(--header-gradient) 0%,
-                var(--header-gradient-mid) 20%,
-                var(--header-gradient-mid) 40%,
-                var(--header-gradient-end) 100%);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            mask-image: linear-gradient(0deg, 
-                rgba(0, 0, 0, 1) 0%,
-                rgba(0, 0, 0, 0.95) 20%,
-                rgba(0, 0, 0, 0.85) 35%,
-                rgba(0, 0, 0, 0.7) 50%,
-                rgba(0, 0, 0, 0.5) 65%,
-                rgba(0, 0, 0, 0.3) 80%,
-                rgba(0, 0, 0, 0.1) 90%,
-                rgba(0, 0, 0, 0) 100%);
-            -webkit-mask-image: linear-gradient(0deg, 
-                rgba(0, 0, 0, 1) 0%,
-                rgba(0, 0, 0, 0.95) 20%,
-                rgba(0, 0, 0, 0.85) 35%,
-                rgba(0, 0, 0, 0.7) 50%,
-                rgba(0, 0, 0, 0.5) 65%,
-                rgba(0, 0, 0, 0.3) 80%,
-                rgba(0, 0, 0, 0.1) 90%,
-                rgba(0, 0, 0, 0) 100%);
-            z-index: -1;
-            pointer-events: none;
-            transition: background 0.3s ease;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-
-        .footer-text {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            letter-spacing: 0.02em;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .footer-links a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 400;
-            letter-spacing: 0.02em;
-        }
-
-        /* Main content */
-        main {
-            position: relative;
-            z-index: 1;
-            padding-top: 100px;
-        }
-
-        .section {
-            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 4rem 2rem;
-        }
-
-        .section#home {
-            padding: 2rem 2rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            width: 100%;
+            min-height: 100vh;
+            padding: 2rem;
+            margin-top: -40px;
         }
 
         .glass-card {
-            padding: 3rem;
-            border-radius: 24px;
-            animation: fadeInUp 0.8s ease-out;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 28px;
+            padding: clamp(2.5rem, 5vw, 3.5rem) clamp(2rem, 4vw, 3rem);
+            max-width: 850px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            text-align: center;
+            animation: fadeIn 0.8s ease-out;
         }
 
-        @keyframes fadeInUp {
+        @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -677,708 +278,462 @@
             }
         }
 
-        h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
+        .glass-card h1 {
+            font-size: clamp(2.25rem, 5vw, 3.5rem);
             font-weight: 700;
-            letter-spacing: -0.04em;
-            line-height: 1;
-            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+            margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+            line-height: 1.1;
         }
 
-        #home h1 {
-            font-size: clamp(2rem, 5vw, 5rem);
-            margin-bottom: 1.2rem;
-            font-weight: 700;
-            white-space: nowrap;
+        .glass-card p {
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            line-height: 1.6;
+            margin-bottom: clamp(2rem, 3.5vw, 2.5rem);
+            opacity: 0.85;
+            font-weight: 300;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        h2 {
-            font-size: clamp(2rem, 5vw, 4rem);
-            font-weight: 600;
-            letter-spacing: -0.03em;
-            margin-bottom: 2rem;
-        }
-
-        h3 {
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-        }
-
-        p {
-            font-size: 1.125rem;
-            line-height: 1.8;
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-        }
-
-        /* Buttons */
-        .btn {
+        .cta-button {
             display: inline-block;
-            padding: 1rem 2.5rem;
-            border-radius: 12px;
+            background: white;
+            color: #0026ff;
             text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            background: var(--glass-bg);
-            color: var(--text-primary);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-        }
-
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.6);
-            border-color: rgba(255, 255, 255, 0.8);
-            transform: translateY(-3px);
-            box-shadow: 0 16px 56px 0 rgba(0, 0, 0, 0.15);
-        }
-
-        body.dark-mode .btn:hover,
-        html.dark-mode .btn:hover {
-            background: rgba(60, 60, 60, 0.6);
-            border-color: rgba(100, 100, 100, 0.8);
-        }
-
-        /* Contact links hover effect */
-        #contact a:hover {
-            opacity: 0.7;
-        }
-
-        /* Work grid */
-        .work-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .home-work-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin: 0;
-        }
-
-        /* Testimonials */
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin-top: 0;
-        }
-
-        .testimonial-item {
-            padding: 2rem;
-            border-radius: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .testimonial-text {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            color: var(--text-secondary);
-            font-style: italic;
-            margin: 0;
-        }
-
-        .testimonial-author {
-            margin-top: auto;
-            padding-top: 1rem;
-            border-top: 1px solid var(--glass-border);
-        }
-
-        .home-work-grid .work-item {
-            aspect-ratio: 1.2;
-        }
-
-        .home-work-grid .work-item-content {
-            padding: 1.5rem;
-        }
-
-        .home-work-grid .work-item h3 {
-            font-size: 1.35rem;
-            margin-bottom: 0.4rem;
+            font-size: clamp(1rem, 2vw, 1.15rem);
             font-weight: 600;
-        }
-
-        .home-work-grid .work-item p {
-            font-size: 0.9rem;
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        .work-item {
-            aspect-ratio: 1;
-            border-radius: 16px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            position: relative;
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-
-        .work-item::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, 
-                rgba(224, 195, 252, 0.3) 0%, 
-                rgba(142, 197, 252, 0.3) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .work-item:hover::before {
-            opacity: 1;
-        }
-
-        .work-item:hover {
-            transform: translateY(-8px) rotateX(5deg) rotateY(-5deg) scale(1.02);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        }
-
-        .work-item-content {
-            padding: 2rem;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-        }
-
-        .work-item h3 {
-            margin-bottom: 0.5rem;
-        }
-
-        .work-item p {
-            font-size: 0.95rem;
-            margin: 0;
-        }
-
-        /* Contact form */
-        .contact-form {
-            max-width: 600px;
-            margin: 2rem auto 0;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 1rem;
+            padding: clamp(1rem, 2.2vw, 1.25rem) clamp(2.25rem, 4.5vw, 3rem);
+            border-radius: 50px;
             transition: all 0.3s ease;
+            letter-spacing: 0.01em;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: rgba(26, 26, 26, 0.3);
-            background: rgba(255, 255, 255, 0.6);
+        .cta-button:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.95);
         }
 
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
+        .cta-button:active {
+            transform: translateY(-1px);
         }
 
-        /* Mobile styles */
         @media (max-width: 768px) {
-            header {
-                padding: 1rem 1.5rem;
+            nav {
+                padding: 0.5rem;
+                gap: 0.5rem;
             }
 
             .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                height: 100vh;
-                background: var(--mobile-menu-bg);
-                backdrop-filter: blur(5px) saturate(180%);
-                -webkit-backdrop-filter: blur(5px) saturate(180%);
-                flex-direction: column;
-                padding: 6rem 2rem 2rem;
-                gap: 2rem;
-                transition: right 0.4s ease, background 0.3s ease;
-                border-left: none;
-                overflow: hidden;
-                isolation: isolate;
-            }
-
-            .nav-links.active {
-                right: 0;
-            }
-
-            .nav-links a {
-                font-size: 1.5rem;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .section {
-                padding: 3rem 1.5rem;
-            }
-
-            .section#home {
-                padding: 2rem 1.5rem;
+                gap: 0.5rem;
             }
 
             .glass-card {
-                padding: 2rem;
+                padding: clamp(2rem, 4vw, 2.5rem);
             }
 
-            #home h1 {
-                font-size: clamp(1.8rem, 6vw, 3rem);
-                white-space: normal;
+            .background-grid {
+                gap: 15px;
+                padding: 15px;
             }
 
-            .work-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
+            .portfolio-column:nth-child(3),
+            .portfolio-column:nth-child(4) {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 0.4rem;
+                gap: 0.4rem;
             }
 
-            .home-work-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
+            .nav-links {
+                gap: 0.4rem;
             }
 
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
+            .center-text {
+                padding: 1rem;
             }
 
-            .testimonial-item {
-                padding: 1.5rem;
+            .glass-card {
+                border-radius: 20px;
             }
 
-            .testimonial-text {
-                font-size: 1rem;
+            .background-grid {
+                gap: 10px;
+                padding: 10px;
             }
 
-            h1 {
-                margin-bottom: 1rem;
+            .portfolio-column:nth-child(2) {
+                display: none;
             }
 
-            p {
-                font-size: 1rem;
-            }
-
-            footer {
-                padding: 1.5rem 1.5rem 1rem;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 1rem;
-            }
-
-            .footer-links {
-                gap: 1.5rem;
-            }
-
-            #contact a[href^="tel"],
-            #contact a[href^="mailto"] {
-                font-size: 2rem !important;
-                white-space: normal !important;
-                word-break: break-word !important;
+            .portfolio-item:nth-child(odd),
+            .portfolio-item:nth-child(even),
+            .portfolio-item:nth-child(3n),
+            .portfolio-item:nth-child(5n) {
+                height: 250px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- SVG Filter for distortion effect -->
-    <svg id="distortion-filter">
-        <defs>
-            <filter id="distortion" x="-50%" y="-50%" width="200%" height="200%">
-                <feTurbulence 
-                    type="fractalNoise" 
-                    baseFrequency="0.01 0.008" 
-                    numOctaves="3" 
-                    result="turbulence"
-                    seed="2">
-                    <animate 
-                        attributeName="baseFrequency" 
-                        dur="60s" 
-                        values="0.01 0.008;0.012 0.01;0.01 0.008" 
-                        repeatCount="indefinite"/>
-                </feTurbulence>
-                <feDisplacementMap 
-                    in="SourceGraphic" 
-                    in2="turbulence" 
-                    scale="20" 
-                    xChannelSelector="R" 
-                    yChannelSelector="G">
-                    <animate 
-                        attributeName="scale" 
-                        dur="15s" 
-                        values="20;35;20" 
-                        repeatCount="indefinite"/>
-                </feDisplacementMap>
-                <feGaussianBlur stdDeviation="0" result="blur"/>
-            </filter>
-        </defs>
-    </svg>
+    <div class="background-grid">
+        <!-- Column 1 - Slides Down -->
+        <div class="portfolio-column">
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="80" fill="white" stroke="#0026ff" stroke-width="4"/>
+                        <path d="M100 50 L150 120 L50 120 Z" fill="#0026ff"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="40" y="40" width="120" height="120" rx="20" fill="white"/>
+                        <circle cx="100" cy="100" r="30" fill="#0026ff"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 30 L170 100 L100 170 L30 100 Z" fill="white"/>
+                        <text x="100" y="120" text-anchor="middle" font-size="60" font-weight="bold" fill="#0026ff">B</text>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="70" cy="100" r="40" fill="white"/>
+                        <circle cx="130" cy="100" r="40" fill="white" opacity="0.7"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 40 L160 100 L100 160 L40 100 Z" fill="none" stroke="white" stroke-width="8"/>
+                        <circle cx="100" cy="100" r="20" fill="white"/>
+                    </svg>
+                </div>
+            </div>
+            <!-- Duplicate for seamless loop -->
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="80" fill="white" stroke="#0026ff" stroke-width="4"/>
+                        <path d="M100 50 L150 120 L50 120 Z" fill="#0026ff"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="40" y="40" width="120" height="120" rx="20" fill="white"/>
+                        <circle cx="100" cy="100" r="30" fill="#0026ff"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 30 L170 100 L100 170 L30 100 Z" fill="white"/>
+                        <text x="100" y="120" text-anchor="middle" font-size="60" font-weight="bold" fill="#0026ff">B</text>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="70" cy="100" r="40" fill="white"/>
+                        <circle cx="130" cy="100" r="40" fill="white" opacity="0.7"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 40 L160 100 L100 160 L40 100 Z" fill="none" stroke="white" stroke-width="8"/>
+                        <circle cx="100" cy="100" r="20" fill="white"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
 
-    <div class="background-designs">
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
-        <div class="design-element"></div>
+        <!-- Column 2 - Slides Up -->
+        <div class="portfolio-column">
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="50" y="50" width="100" height="100" fill="white"/>
+                        <path d="M50 50 L100 100 L150 50" stroke="#0026ff" stroke-width="8" fill="none"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="70" fill="none" stroke="white" stroke-width="6"/>
+                        <text x="100" y="115" text-anchor="middle" font-size="50" font-weight="bold" fill="white">M</text>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 40 L140 80 L140 120 L100 160 L60 120 L60 80 Z" fill="white"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="60" y="60" width="80" height="80" rx="40" fill="white"/>
+                        <rect x="80" y="80" width="40" height="40" rx="20" fill="#0026ff"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 100 L100 50 L150 100 L100 150 Z" fill="white"/>
+                        <path d="M80 100 L100 80 L120 100 L100 120 Z" fill="#0026ff"/>
+                    </svg>
+                </div>
+            </div>
+            <!-- Duplicate for seamless loop -->
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="50" y="50" width="100" height="100" fill="white"/>
+                        <path d="M50 50 L100 100 L150 50" stroke="#0026ff" stroke-width="8" fill="none"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="70" fill="none" stroke="white" stroke-width="6"/>
+                        <text x="100" y="115" text-anchor="middle" font-size="50" font-weight="bold" fill="white">M</text>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 40 L140 80 L140 120 L100 160 L60 120 L60 80 Z" fill="white"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="60" y="60" width="80" height="80" rx="40" fill="white"/>
+                        <rect x="80" y="80" width="40" height="40" rx="20" fill="#0026ff"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 100 L100 50 L150 100 L100 150 Z" fill="white"/>
+                        <path d="M80 100 L100 80 L120 100 L100 120 Z" fill="#0026ff"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Column 3 - Slides Down -->
+        <div class="portfolio-column">
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="70" r="30" fill="white"/>
+                        <circle cx="70" cy="130" r="30" fill="white" opacity="0.8"/>
+                        <circle cx="130" cy="130" r="30" fill="white" opacity="0.6"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 30 L180 100 L100 170 L20 100 Z" fill="none" stroke="white" stroke-width="10"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="50" y="70" width="100" height="60" rx="30" fill="white"/>
+                        <text x="100" y="115" text-anchor="middle" font-size="40" font-weight="bold" fill="#0026ff">X</text>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 40 L40 100 L100 160 L160 100 Z" fill="white"/>
+                        <circle cx="100" cy="100" r="25" fill="#0026ff"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="100,30 170,80 150,160 50,160 30,80" fill="white"/>
+                    </svg>
+                </div>
+            </div>
+            <!-- Duplicate for seamless loop -->
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="70" r="30" fill="white"/>
+                        <circle cx="70" cy="130" r="30" fill="white" opacity="0.8"/>
+                        <circle cx="130" cy="130" r="30" fill="white" opacity="0.6"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 30 L180 100 L100 170 L20 100 Z" fill="none" stroke="white" stroke-width="10"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="50" y="70" width="100" height="60" rx="30" fill="white"/>
+                        <text x="100" y="115" text-anchor="middle" font-size="40" font-weight="bold" fill="#0026ff">X</text>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 40 L40 100 L100 160 L160 100 Z" fill="white"/>
+                        <circle cx="100" cy="100" r="25" fill="#0026ff"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="100,30 170,80 150,160 50,160 30,80" fill="white"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Column 4 - Slides Up -->
+        <div class="portfolio-column">
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="60" fill="white"/>
+                        <path d="M70 100 L100 70 L130 100 L100 130 Z" fill="#0026ff"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="40" y="80" width="120" height="40" fill="white"/>
+                        <text x="100" y="110" text-anchor="middle" font-size="30" font-weight="bold" fill="#0026ff">LOGO</text>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50 L150 100 L100 150 L50 100 Z" fill="none" stroke="white" stroke-width="8"/>
+                        <circle cx="100" cy="100" r="15" fill="white"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="60" y="60" width="80" height="80" fill="white"/>
+                        <path d="M60 100 L100 60 L140 100 L100 140 Z" fill="#0026ff"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="70" fill="white"/>
+                        <text x="100" y="120" text-anchor="middle" font-size="60" font-weight="bold" fill="#0026ff">A</text>
+                    </svg>
+                </div>
+            </div>
+            <!-- Duplicate for seamless loop -->
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="60" fill="white"/>
+                        <path d="M70 100 L100 70 L130 100 L100 130 Z" fill="#0026ff"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="40" y="80" width="120" height="40" fill="white"/>
+                        <text x="100" y="110" text-anchor="middle" font-size="30" font-weight="bold" fill="#0026ff">LOGO</text>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50 L150 100 L100 150 L50 100 Z" fill="none" stroke="white" stroke-width="8"/>
+                        <circle cx="100" cy="100" r="15" fill="white"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="60" y="60" width="80" height="80" fill="white"/>
+                        <path d="M60 100 L100 60 L140 100 L100 140 Z" fill="#0026ff"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="logo-example">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="70" fill="white"/>
+                        <text x="100" y="120" text-anchor="middle" font-size="60" font-weight="bold" fill="#0026ff">A</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <header>
-        <nav>
-            <div class="logo">Tóth Krisztián</div>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#work">Work</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li>
-                    <div class="dark-mode-toggle" id="darkModeToggle">
-                        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
-                        </svg>
-                        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                        </svg>
-                    </div>
-                </li>
-            </ul>
-        </nav>
-    </header>
+    <nav>
+        <div class="logo"></div>
+        <ul class="nav-links">
+            <li><a href="#home">Christian Toth</a></li>
+            <li><a href="#about">about</a></li>
+            <li><a href="#contact">contact</a></li>
+        </ul>
+    </nav>
 
-    <main>
-        <!-- Home Section -->
-        <section class="section" id="home">
-            <div class="container">
-                <div class="glass-card glass">
-                    <div style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">
-                        <h1>Logo & Brand Designer</h1>
-                        <p style="font-size: 1.3rem; line-height: 1.6; margin-bottom: 0; color: var(--text-primary); font-weight: 400;">Creating memorable identities and cohesive brand systems that help businesses stand out and connect with their audience.</p>
-                    </div>
-                    
-                    <div class="home-work-grid">
-                        <div class="work-item glass">
-                            <div class="work-item-content">
-                                <h3>Tech Startup</h3>
-                                <p>Complete brand identity and logo design</p>
-                            </div>
-                        </div>
-                        <div class="work-item glass">
-                            <div class="work-item-content">
-                                <h3>Restaurant Brand</h3>
-                                <p>Logo design and visual identity system</p>
-                            </div>
-                        </div>
-                        <div class="work-item glass">
-                            <div class="work-item-content">
-                                <h3>Fashion Label</h3>
-                                <p>Brand strategy and logo development</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div style="text-align: center; margin-top: 2.5rem;">
-                        <a href="#work" class="btn" style="padding: 1.2rem 3rem; font-size: 1.05rem;">View More Work</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Work Section -->
-        <section class="section" id="work">
-            <div class="container">
-                <div class="glass-card glass">
-                    <div style="text-align: center; max-width: 700px; margin: 0 auto 3rem;">
-                        <h2>Selected Work</h2>
-                        <p style="font-size: 1.15rem; color: var(--text-primary); margin-bottom: 0;">Explore a collection of brand identities crafted to make lasting impressions.</p>
-                    </div>
-                    <div class="work-grid">
-                        <div class="work-item glass">
-                            <div class="work-item-content">
-                                <h3>Tech Startup</h3>
-                                <p>Complete brand identity and logo design</p>
-                            </div>
-                        </div>
-                        <div class="work-item glass">
-                            <div class="work-item-content">
-                                <h3>Restaurant Brand</h3>
-                                <p>Logo design and visual identity system</p>
-                            </div>
-                        </div>
-                        <div class="work-item glass">
-                            <div class="work-item-content">
-                                <h3>Fashion Label</h3>
-                                <p>Brand strategy and logo development</p>
-                            </div>
-                        </div>
-                        <div class="work-item glass">
-                            <div class="work-item-content">
-                                <h3>Wellness Studio</h3>
-                                <p>Holistic brand identity and collateral</p>
-                            </div>
-                        </div>
-                        <div class="work-item glass">
-                            <div class="work-item-content">
-                                <h3>Finance App</h3>
-                                <p>Logo design and brand guidelines</p>
-                            </div>
-                        </div>
-                        <div class="work-item glass">
-                            <div class="work-item-content">
-                                <h3>Creative Agency</h3>
-                                <p>Full rebrand and identity refresh</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonials Section -->
-        <section class="section" id="testimonials">
-            <div class="container">
-                <div class="glass-card glass">
-                    <div style="text-align: center; max-width: 700px; margin: 0 auto 3rem;">
-                        <h2>What Clients Say</h2>
-                        <p style="font-size: 1.15rem; color: var(--text-primary); margin-bottom: 0;">Trusted by businesses who value exceptional design.</p>
-                    </div>
-                    <div class="testimonials-grid">
-                        <div class="testimonial-item glass">
-                            <p class="testimonial-text">"Krisztián transformed our brand identity beyond our expectations. The logo perfectly captures our mission and has helped us stand out in a crowded market."</p>
-                            <div class="testimonial-author">
-                                <p style="margin: 0; font-weight: 600; color: var(--text-primary);">Sarah Chen</p>
-                                <p style="margin: 0; font-size: 0.9rem;">CEO, Tech Startup</p>
-                            </div>
-                        </div>
-                        <div class="testimonial-item glass">
-                            <p class="testimonial-text">"Working with Krisztián was seamless. He understood our vision immediately and delivered a cohesive brand system that elevated our entire business."</p>
-                            <div class="testimonial-author">
-                                <p style="margin: 0; font-weight: 600; color: var(--text-primary);">Marcus Rivera</p>
-                                <p style="margin: 0; font-size: 0.9rem;">Owner, Restaurant Brand</p>
-                            </div>
-                        </div>
-                        <div class="testimonial-item glass">
-                            <p class="testimonial-text">"The attention to detail and strategic thinking behind every design choice was impressive. Our new brand identity has driven real business results."</p>
-                            <div class="testimonial-author">
-                                <p style="margin: 0; font-weight: 600; color: var(--text-primary);">Emma Johnson</p>
-                                <p style="margin: 0; font-size: 0.9rem;">Founder, Fashion Label</p>
-                            </div>
-                        </div>
-                        <div class="testimonial-item glass">
-                            <p class="testimonial-text">"Professional, creative, and dedicated to getting every detail right. The rebrand exceeded all expectations and truly represents who we are as a company."</p>
-                            <div class="testimonial-author">
-                                <p style="margin: 0; font-weight: 600; color: var(--text-primary);">David Martinez</p>
-                                <p style="margin: 0; font-size: 0.9rem;">Director, Creative Agency</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section class="section" id="about">
-            <div class="container">
-                <div class="glass-card glass">
-                    <div style="text-align: center; max-width: 800px; margin: 0 auto;">
-                        <h2>About Me</h2>
-                        <p style="font-size: 1.2rem; line-height: 1.7; color: var(--text-primary); font-weight: 400; margin-bottom: 2rem;">I'm a logo and brand designer specializing in creating distinctive identities that capture the essence of businesses and help them make a lasting impression.</p>
-                        
-                        <div style="text-align: left; margin-top: 3rem;">
-                            <div style="margin-bottom: 2.5rem;">
-                                <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">My Approach</h3>
-                                <p style="font-size: 1.05rem; line-height: 1.8;">My process combines strategic thinking with creative exploration, ensuring every logo and brand system is not only visually striking but also meaningful and effective across all touchpoints.</p>
-                            </div>
-                            
-                            <div style="margin-bottom: 2.5rem;">
-                                <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">What I Deliver</h3>
-                                <p style="font-size: 1.05rem; line-height: 1.8;">With a focus on simplicity, versatility, and timeless design, I help brands build strong visual foundations that grow with them over time. From initial concept to final brand guidelines, I ensure every detail reinforces your unique story.</p>
-                            </div>
-                            
-                            <div style="text-align: center; margin-top: 3rem;">
-                                <a href="#contact" class="btn" style="padding: 1.2rem 3rem; font-size: 1.05rem;">Let's Work Together</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="section" id="contact">
-            <div class="container">
-                <div class="glass-card glass">
-                    <div style="text-align: center; max-width: 900px; margin: 0 auto;">
-                        <h2>Let's Create Something Amazing</h2>
-                        <p style="font-size: 1.15rem; line-height: 1.7; color: var(--text-primary); margin-bottom: 4rem;">Ready to elevate your brand? I'd love to hear about your project and explore how we can work together.</p>
-                        
-                        <!-- Contact Information -->
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 2rem; margin-bottom: 4rem;">
-                            <div>
-                                <a href="tel:+36301234567" style="font-size: 2.8rem; color: var(--text-primary); text-decoration: none; font-weight: 700; transition: opacity 0.3s ease; display: block; line-height: 1.1; letter-spacing: -0.03em; white-space: nowrap;">+36 30 123 4567</a>
-                            </div>
-                            
-                            <div>
-                                <a href="mailto:hello@tothkrisztian.com" style="font-size: 2.8rem; color: var(--text-primary); text-decoration: none; font-weight: 700; transition: opacity 0.3s ease; display: block; line-height: 1.1; letter-spacing: -0.03em; white-space: nowrap;">hello@tothkrisztian.com</a>
-                            </div>
-                        </div>
-                        
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; padding-top: 2.5rem; border-top: 1px solid var(--glass-border);">
-                            <a href="https://t.me/tothkrisztian" target="_blank" rel="noopener noreferrer" style="font-size: 1rem; color: var(--text-secondary); text-decoration: none; transition: opacity 0.3s ease; display: inline-block;">Telegram: @tothkrisztian</a>
-                            <p style="font-size: 0.95rem; color: var(--text-secondary); margin: 0;">Based in Budapest, Hungary</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-text">© 2026 Tóth Krisztián. All rights reserved.</div>
-            <ul class="footer-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#work">Work</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+    <div class="center-text">
+        <div class="glass-card">
+            <h1>Logo & Brand Designer</h1>
+            <p>Crafting distinctive visual identities that tell your story and connect with your audience. From concept to execution, I bring brands to life.</p>
+            <a href="#work" class="cta-button">Let's see the work</a>
         </div>
-    </footer>
-
-    <script>
-        // Dark mode toggle - optimized to prevent flickering
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
-        const html = document.documentElement;
-        
-        // Check for saved dark mode preference and apply immediately
-        const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
-        if (isDarkMode) {
-            body.classList.add('dark-mode');
-            html.classList.add('dark-mode');
-        }
-        
-        darkModeToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Toggle dark mode
-            const willBeDark = !body.classList.contains('dark-mode');
-            
-            if (willBeDark) {
-                body.classList.add('dark-mode');
-                html.classList.add('dark-mode');
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                body.classList.remove('dark-mode');
-                html.classList.remove('dark-mode');
-                localStorage.setItem('darkMode', 'disabled');
-            }
-        });
-
-        // Header scroll effect
-        const header = document.querySelector('header');
-        
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Hamburger menu toggle
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
-
-        // Close menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
+    </div>
 </body>
 </html>
